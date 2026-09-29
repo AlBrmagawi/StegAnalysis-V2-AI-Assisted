@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="420" viewBox="0 0 1600 420" role="img" aria-labelledby="title desc">
+  <title id="title">StegAnalysis V2 — AI-assisted evidence workbench</title>
+  <desc id="desc">A local forensic workflow connecting original evidence, recorded analysis, findings and reports.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#101c24"/><stop offset="1" stop-color="#123536"/></linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#94dfcf" stroke-opacity=".055"/></pattern>
+  </defs>
+  <rect width="1600" height="420" rx="24" fill="url(#bg)"/>
+  <rect width="1600" height="420" rx="24" fill="url(#grid)"/>
+  <path d="M72 94h42l22 22-22 22H72l22-22Z" fill="#81e2c5"/>
+  <g font-family="Segoe UI,Arial,sans-serif">
+    <text x="156" y="122" font-size="20" font-weight="600" letter-spacing="5" fill="#a9d9ce">EVIDENCE WORKBENCH</text>
+    <text x="72" y="220" font-size="76" font-weight="700" letter-spacing="-2" fill="#f0f8f6">StegAnalysis <tspan fill="#81e2c5">V2</tspan></text>
+    <text x="76" y="272" font-size="27" fill="#c2d6d3">Local evidence. Traceable findings.</text>
+    <text x="76" y="339" font-size="17" letter-spacing="2" fill="#93b9b1">PDF  /  IMAGE  /  AUDIO  /  TEXT</text>
+    <g transform="translate(950 88)">
+      <path d="M190 56h68v168h-68M258 56h52M258 224h52" stroke="#69bbaa" stroke-width="2" fill="none"/>
+      <rect width="190" height="112" rx="14" fill="#172b31" stroke="#48736d"/>
+      <text x="24" y="36" fill="#8ac8b9" font-size="13" letter-spacing="2">01 / ORIGINAL</text>
+      <text x="24" y="68" fill="#edf6f3" font-size="22" font-weight="600">Preserve</text>
+      <text x="24" y="91" fill="#b8d0c9" font-size="14">SHA-256 identity</text>
+      <rect x="310" width="200" height="112" rx="14" fill="#172b31" stroke="#48736d"/>
+      <text x="334" y="36" fill="#8ac8b9" font-size="13" letter-spacing="2">02 / ANALYSIS</text>
+      <text x="334" y="68" fill="#edf6f3" font-size="22" font-weight="600">Inspect</text>
+      <text x="334" y="91" fill="#b8d0c9" font-size="14">Recorded methods</text>
+      <rect y="168" width="190" height="112" rx="14" fill="#172b31" stroke="#48736d"/>
+      <text x="24" y="204" fill="#8ac8b9" font-size="13" letter-spacing="2">03 / FINDINGS</text>
+      <text x="24" y="236" fill="#edf6f3" font-size="22" font-weight="600">Review</text>
+      <text x="24" y="259" fill="#b8d0c9" font-size="14">Evidence citations</text>
+      <rect x="310" y="168" width="200" height="112" rx="14" fill="#193e3b" stroke="#81e2c5"/>
+      <text x="334" y="204" fill="#a3e9d5" font-size="13" letter-spacing="2">04 / REPORT</text>
+      <text x="334" y="236" fill="#edf6f3" font-size="22" font-weight="600">Explain</text>
+      <text x="334" y="259" fill="#b8d0c9" font-size="14">Reproducible record</text>
+    </g>
+  </g>
+</svg>

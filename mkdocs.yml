@@ -1,0 +1,38 @@
+site_name: StegAnalysis V2
+site_description: Local evidence, traceable findings, defensible conclusions
+repo_url: https://github.com/AlBrmagawi/StegAnalysis-V2-AI-Assisted
+repo_name: AlBrmagawi/StegAnalysis-V2-AI-Assisted
+edit_uri: edit/main/docs/
+copyright: Original creators — Mohamed Abdelgalil (AlBrmagawi) and Spooky
+nav:
+  - Workbench: index.md
+  - Installation: installation.md
+  - Workflow & API: usage.md
+  - Analysis methods: analyzers.md
+  - Architecture: architecture.md
+  - Assistant & privacy: assistant.md
+  - Experimental ML: ml.md
+  - Security: security.md
+  - Verification: verification.md
+  - Testing: testing.md
+  - Provenance & licensing: provenance-and-licensing.md
+  - Legacy compatibility:
+      - CLI: steganalysis/main.md
+      - Binwalk: steganalysis/run_binwalk.md
+      - zsteg: steganalysis/run_zsteg.md
+      - Steghide: steganalysis/run_steghide.md
+      - Stegsolve replacement: steganalysis/run_stegsolve.md
+      - Foremost status: steganalysis/run_foremost.md
+theme:
+  name: material
+  font: false
+  palette:
+    scheme: slate
+    primary: teal
+    accent: teal
+  features:
+    - navigation.sections
+    - navigation.top
+markdown_extensions:
+  - tables
+  - fenced_code

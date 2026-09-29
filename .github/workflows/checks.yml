@@ -1,0 +1,63 @@
+name: Quality assurance
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.12.20"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: uv sync --frozen --group ml --python 3.12
+      - run: uv run --frozen --group ml ruff check steganalysis tests scripts script.py
+      - run: uv run --frozen --group ml mypy steganalysis
+      - run: uv run --frozen --group ml pytest --cov --cov-report=term-missing --cov-report=xml -q
+      - run: npm ci && npm run lint && npm run build
+        working-directory: frontend
+      - run: npx playwright install --with-deps chromium firefox webkit
+        working-directory: frontend
+      - run: npm run test:e2e
+        working-directory: frontend
+      - run: uv run --frozen --group ml mkdocs build --strict
+      - run: uv build
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verification-${{ matrix.os }}
+          path: |
+            coverage.xml
+            frontend/playwright-report/
+            frontend/test-results/
+          retention-days: 14
+  container:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build --target verification -t steganalysis-verification .
+      - run: docker run --rm --init --network none --read-only --tmpfs /tmp:rw,noexec,nosuid,size=256m --cap-drop ALL --security-opt no-new-privileges --memory 2g --cpus 2 --pids-limit 96 steganalysis-verification
+      - run: docker compose up --build -d --wait
+      - run: docker compose exec -T workbench steganalysis demo
+      - run: curl --fail http://127.0.0.1:8000/api/cases
+      - run: docker compose logs --tail 30
+        if: always()
+      - run: docker compose down
+        if: always()

@@ -1,0 +1,48 @@
+name: Bug report
+description: Report a reproducible problem in the investigation workflow.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: "Use generated or sanitized inputs. Do not attach private case data, reports or credentials. Report vulnerabilities through the repository's Security tab."
+  - type: input
+    id: environment
+    attributes:
+      label: Version and environment
+      description: Commit/version, OS, browser, and native or Docker launch method.
+      placeholder: "V2 / commit, Windows or Linux, browser version, native or Docker"
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      options:
+        - Upload and evidence storage
+        - Analysis or job execution
+        - Investigation UI
+        - Assistant
+        - Reports
+        - Installation or containers
+        - Experimental ML
+        - Documentation
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Include input format and a benign fixture or generation method when possible.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Sanitized logs or screenshots
+      description: Include relevant run errors or doctor output; remove sensitive paths, file contents and credentials.

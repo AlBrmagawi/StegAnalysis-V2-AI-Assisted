@@ -1,0 +1,23 @@
+name: Workflow improvement
+description: Propose an improvement with a concrete analyst use case.
+title: "[Feature]: "
+body:
+  - type: textarea
+    id: workflow
+    attributes:
+      label: Analyst workflow and current limitation
+      description: What are you trying to examine, and where does the current workflow fall short?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Explain the expected interaction or output and alternatives you considered.
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation and limitations
+      description: Suggest benign test inputs, measurable success criteria, and interpretation limits.

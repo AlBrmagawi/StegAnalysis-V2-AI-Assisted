@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "feature_version": "rgb-residual-lsb-v1",
+  "feature_names": [
+    "R_lsb_mean",
+    "R_lsb_horizontal_transition",
+    "R_pair_imbalance",
+    "R_residual_mean",
+    "R_residual_std",
+    "R_neighbor_difference",
+    "G_lsb_mean",
+    "G_lsb_horizontal_transition",
+    "G_pair_imbalance",
+    "G_residual_mean",
+    "G_residual_std",
+    "G_neighbor_difference",
+    "B_lsb_mean",
+    "B_lsb_horizontal_transition",
+    "B_pair_imbalance",
+    "B_residual_mean",
+    "B_residual_std",
+    "B_neighbor_difference"
+  ],
+  "model_version": "logistic-lsb-v1",
+  "sklearn_version": "1.9.1",
+  "seed": 1729,
+  "manifest_sha256": "8d97dbb2ca088efa8cf0b3c8572d331d6e2cd81fe05a04a3d435b4da4854fecd",
+  "dataset_type": "synthetic-only",
+  "source_count": 60,
+  "composition": {
+    "train": 180,
+    "validation": 60,
+    "test": 60
+  },
+  "threshold": 0.35,
+  "evaluation": {
+    "validation": {
+      "n": 60,
+      "precision": 0.6122448979591837,
+      "recall": 0.8333333333333334,
+      "f1": 0.7058823529411765,
+      "roc_auc": 0.6122685185185186,
+      "false_positive_rate": 0.7916666666666666
+    },
+    "test": {
+      "n": 60,
+      "precision": 0.6181818181818182,
+      "recall": 0.9444444444444444,
+      "f1": 0.7472527472527473,
+      "roc_auc": 0.6203703703703705,
+      "false_positive_rate": 0.875
+    },
+    "held_out_payload_rates": {
+      "0.1": {
+        "n": 36,
+        "precision": 0.3225806451612903,
+        "recall": 0.8333333333333334,
+        "f1": 0.46511627906976744,
+        "roc_auc": 0.4930555555555556,
+        "false_positive_rate": 0.875
+      },
+      "0.4": {
+        "n": 36,
+        "precision": 0.36363636363636365,
+        "recall": 1.0,
+        "f1": 0.5333333333333333,
+        "roc_auc": 0.6180555555555556,
+        "false_positive_rate": 0.875
+      },
+      "1.0": {
+        "n": 36,
+        "precision": 0.36363636363636365,
+        "recall": 1.0,
+        "f1": 0.5333333333333333,
+        "roc_auc": 0.75,
+        "false_positive_rate": 0.875
+      }
+    },
+    "held_out_controls": {
+      "JPEG-compressed negative": {
+        "n": 12,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": null,
+        "false_positive_rate": 0.8333333333333334
+      },
+      "synthetic-noise": {
+        "n": 6,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": null,
+        "false_positive_rate": 0.8333333333333334
+      },
+      "synthetic-smooth": {
+        "n": 6,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": null,
+        "false_positive_rate": 1.0
+      }
+    }
+  },
+  "limitations": "Experimental logistic score, not calibrated hidden-data probability. Evaluated only on random-position RGB LSB replacement, top-left <=256\u00d7256 crop. No DCT analysis. Synthetic-only evaluation cannot substantiate field accuracy."
+}

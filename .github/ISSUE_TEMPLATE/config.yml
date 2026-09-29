@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation and troubleshooting
+    url: https://github.com/AlBrmagawi/StegAnalysis-V2-AI-Assisted/tree/main/docs
+    about: Setup, methods, configuration, testing and known limitations.
+  - name: Private vulnerability report
+    url: https://github.com/AlBrmagawi/StegAnalysis-V2-AI-Assisted/security/advisories/new
+    about: Keep security reports and sensitive details private.

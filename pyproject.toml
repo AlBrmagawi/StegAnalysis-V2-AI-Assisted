@@ -1,0 +1,68 @@
+[build-system]
+requires = ["hatchling==1.32.4"]
+build-backend = "hatchling.build"
+
+[project]
+name = "steganalysis-workbench"
+version = "2.0.0"
+description = "Local-first, provenance-aware steganalysis workbench"
+requires-python = ">=3.12,<3.15"
+authors = [{name = "Mohamed Abdelgalil (AlBrmagawi)"}, {name = "Spooky"}]
+dependencies = [
+  "fastapi>=0.115,<1", "uvicorn>=0.34,<1", "python-multipart>=0.0.20,<1",
+  "pillow>=12.3,<13", "pypdf[crypto]>=6.19,<7", "numpy>=2.2,<3",
+  "scipy>=1.15,<2", "httpx>=0.28,<1", "psutil>=7,<8",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8,<10",
+    "ruff>=0.12,<1",
+    "mypy>=1.16,<2",
+    "types-psutil",
+    "mkdocs-material>=9,<10",
+    "httpx2>=2.13.1",
+    "pytest-cov>=7.1.0",
+]
+ml = ["scikit-learn>=1.7,<2"]
+
+[project.scripts]
+steganalysis = "steganalysis.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["steganalysis"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/steganalysis", "/tests", "/scripts", "/frontend/src", "/frontend/e2e",
+  "/frontend/*.json", "/frontend/*.js", "/frontend/*.ts", "/frontend/*.mjs",
+  "/frontend/index.html", "/docs", "/deploy", "/.github", "/README.md",
+  "/PROGRESS.md", "/pyproject.toml", "/uv.lock", "/requirements.lock",
+  "/CONTRIBUTING.md", "/SECURITY.md", "/CHANGELOG.md", "/.editorconfig",
+  "/script.py", "/mkdocs.yml", "/Dockerfile", "/compose.yaml",
+  "/.env.example", "/.dockerignore", "/.gitignore", "/.gitattributes",
+]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
+check_untyped_defs = true
+
+[tool.coverage.run]
+branch = true
+source = ["steganalysis"]
+patch = ["subprocess"]
+
+[tool.coverage.report]
+show_missing = true
