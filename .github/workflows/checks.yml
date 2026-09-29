@@ -34,6 +34,14 @@ jobs:
         working-directory: frontend
       - run: npx playwright install --with-deps chromium firefox webkit
         working-directory: frontend
+      - name: Start Windows audio services for WebKit media playback
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          Get-Service AudioEndpointBuilder, AudioSrv | Format-Table Name, Status, StartType
+          Start-Service AudioEndpointBuilder
+          Start-Service AudioSrv
+          Get-Service AudioEndpointBuilder, AudioSrv | Format-Table Name, Status, StartType
       - run: npm run test:e2e
         working-directory: frontend
       - run: uv run --frozen --group ml mkdocs build --strict
