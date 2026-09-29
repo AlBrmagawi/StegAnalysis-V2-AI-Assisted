@@ -24,6 +24,7 @@
 - Preserve terminal job results during late cancellation or shutdown.
 - Exclude legacy binaries and sample PDFs from source packages and the published V2 tree.
 - Reserve the CLI listening port before startup can recover interrupted jobs.
+- Guard Windows-only process/socket constants so native type checks pass on both Windows and Linux.
 
 ### Verification
 

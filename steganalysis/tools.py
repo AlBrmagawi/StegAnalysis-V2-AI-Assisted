@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import shutil
 import subprocess
+import sys
 import threading
 import time
 from collections.abc import Callable
@@ -10,6 +11,11 @@ from pathlib import Path
 from typing import Any
 
 import psutil
+
+if sys.platform == "win32":
+    PROCESS_CREATION_FLAGS = subprocess.CREATE_NO_WINDOW
+else:
+    PROCESS_CREATION_FLAGS = 0
 
 TOOLS = {
     "binwalk": {
@@ -71,7 +77,7 @@ def run_command(
         stderr=subprocess.PIPE,
         shell=False,
         env=env,
-        creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+        creationflags=PROCESS_CREATION_FLAGS,
         start_new_session=os.name != "nt",
     )
     buffers = {"stdout": bytearray(), "stderr": bytearray()}

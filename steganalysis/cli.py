@@ -4,6 +4,7 @@ import argparse
 import json
 import os
 import socket
+import sys
 from pathlib import Path
 
 from .db import Store
@@ -47,7 +48,7 @@ def main(argv: list[str] | None = None) -> None:
             serve.error("--port must be between 0 and 65535")
         # Own the listening port before startup can recover jobs in the data directory.
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as listener:
-            if os.name == "nt":
+            if sys.platform == "win32":
                 listener.setsockopt(socket.SOL_SOCKET, socket.SO_EXCLUSIVEADDRUSE, 1)
             else:
                 listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)

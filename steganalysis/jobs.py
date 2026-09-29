@@ -11,7 +11,7 @@ import psutil
 
 from .db import Store
 from .models import now
-from .tools import kill_tree
+from .tools import PROCESS_CREATION_FLAGS, kill_tree
 
 TERMINAL = {"completed", "failed", "cancelled", "timed_out", "unsupported"}
 
@@ -100,7 +100,7 @@ class JobManager:
                 stdin=subprocess.DEVNULL,
                 stdout=log,
                 stderr=log,
-                creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+                creationflags=PROCESS_CREATION_FLAGS,
                 start_new_session=os.name != "nt",
             )
             self.store.patch(
