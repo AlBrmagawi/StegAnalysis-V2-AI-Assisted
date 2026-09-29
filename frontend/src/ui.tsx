@@ -80,17 +80,24 @@ export function Modal({
           ),
         ).filter(
           (element) =>
-            element.tabIndex >= 0 && element.getClientRects().length > 0,
+            element.tabIndex >= 0 &&
+            !element.matches(":disabled") &&
+            element.getClientRects().length > 0,
         );
-        const first = controls[0],
-          last = controls.at(-1);
-        if (event.shiftKey && document.activeElement === first) {
-          event.preventDefault();
-          last?.focus();
-        } else if (!event.shiftKey && document.activeElement === last) {
-          event.preventDefault();
-          first?.focus();
-        }
+        // Some OS/browser preferences skip buttons during native Tab movement.
+        // Move focus explicitly so every enabled control stays reachable and
+        // focus cannot leave the modal before reaching a boundary button.
+        event.preventDefault();
+        if (!controls.length) return;
+        const current = controls.indexOf(document.activeElement as HTMLElement);
+        const next =
+          current < 0
+            ? event.shiftKey
+              ? controls.length - 1
+              : 0
+            : (current + (event.shiftKey ? -1 : 1) + controls.length) %
+              controls.length;
+        controls[next].focus();
       }}
       onCancel={(event) => {
         event.preventDefault();

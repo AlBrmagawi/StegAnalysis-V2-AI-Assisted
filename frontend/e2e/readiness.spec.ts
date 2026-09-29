@@ -53,12 +53,31 @@ test("case search, sorting, named dialogs, keyboard focus and Escape", async ({
     page.getByRole("button", { name: "Create case", exact: true }),
   ).toBeDisabled();
   await accessibility(page);
+  const name = dialog.getByLabel("Case name");
+  const description = dialog.getByLabel(/Description/);
+  const cancel = dialog.getByRole("button", { name: "Cancel", exact: true });
+  const close = dialog.getByRole("button", { name: "Close dialog" });
+  const forward = [description, cancel, close, name];
   for (let i = 0; i < 8; i++) {
     await page.keyboard.press("Tab");
+    await expect(forward[i % forward.length]).toBeFocused();
     expect(
       await dialog.evaluate((el) => el.contains(document.activeElement)),
     ).toBe(true);
   }
+  const backward = [close, cancel, description, name];
+  for (let i = 0; i < 8; i++) {
+    await page.keyboard.press("Shift+Tab");
+    await expect(backward[i % backward.length]).toBeFocused();
+  }
+  await name.fill("Keyboard navigation check");
+  const create = dialog.getByRole("button", { name: "Create case", exact: true });
+  await expect(create).toBeEnabled();
+  await close.focus();
+  await page.keyboard.press("Shift+Tab");
+  await expect(create).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(close).toBeFocused();
   await page.keyboard.press("Escape");
   await expect(dialog).toHaveCount(0);
   await expect(

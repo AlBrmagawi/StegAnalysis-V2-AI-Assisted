@@ -25,6 +25,7 @@
 - Exclude legacy binaries and sample PDFs from source packages and the published V2 tree.
 - Reserve the CLI listening port before startup can recover interrupted jobs.
 - Guard Windows-only process/socket constants so native type checks pass on both Windows and Linux.
+- Keep keyboard focus inside dialogs on macOS WebKit, including forward/reverse navigation and dynamically enabled buttons.
 - Run hosted browser checks across Ubuntu (all engines), Windows (Chromium/Firefox), and macOS (WebKit), retaining every journey and playback assertion; document the unverified Windows Server WebKit media combination.
 
 ### Verification
