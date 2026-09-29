@@ -18,7 +18,7 @@ This record describes the local QA pass before V2 publication. Current hosted re
 | Cross-browser regression | 51 passed: 17 journeys each in Chromium, Firefox and WebKit |
 | Dependency audits | No known vulnerabilities: 26 Python runtime packages, 70 packages including dev/ML; npm audit also clean |
 | Credential scan and tracked content | No credentials found; one dataset SHA-256 candidate manually verified; local evidence, environments, secrets and models excluded |
-| GitHub Actions workflow | actionlint 1.7.12 workflow checks passed (optional ShellCheck not installed); Windows/Ubuntu/browser/container jobs configured; see the linked hosted runs for their current status |
+| GitHub Actions workflow | actionlint 1.7.12 workflow checks passed (optional ShellCheck not installed); Windows/Ubuntu/macOS and container jobs configured; see the linked hosted runs and [browser/OS matrix](testing.md#windows-server-webkit-limitation) for current status and the Windows Server WebKit limitation |
 | Packaging | Source archive and wheel built; current modules, creators and excluded content verified; fresh wheel installation completed duplicate ingestion, two real analyzer runs and HTML/JSON export |
 | Browser upload-to-report journey | Passed with real background analysis |
 | Browser cancellation/retry/malformed/unsupported states | Passed |
@@ -29,7 +29,7 @@ This record describes the local QA pass before V2 publication. Current hosted re
 | Optional external tool executables | Not installed; missing-dependency states and subprocess contracts tested |
 | Container clean build/startup | Passed; loopback gateway, non-root UID 10001, read-only root, no worker outbound route; generated demo completed 18/18 runs without duplicates |
 | Container HTTP upload-to-report | Passed on the rebuilt production image in a disposable Compose project; five files covering four input types, 18 runs, 23 findings, 38 SSE events, responsive HTTP during analysis, saved notes, JSON and 246,032-byte HTML export through the gateway; 65.72 seconds |
-| Generated documentation | MkDocs strict build passed; checked-in site regenerated from current source |
+| Generated documentation | MkDocs strict build passed; local site regenerated from current source and excluded from V2 Git history |
 
 ## Meaningful regression cases
 

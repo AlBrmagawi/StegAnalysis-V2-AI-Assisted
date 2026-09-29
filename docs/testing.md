@@ -55,7 +55,21 @@ The verification image installs locked development dependencies at build time. T
 
 To check multipart upload, real analysis, nonblocking HTTP, SSE, hashes and HTML/JSON export through a running disposable gateway, run `uv run python scripts/smoke.py --url http://127.0.0.1:8001` after starting Compose with `STEG_PORT=8001`. This intentionally creates a labeled SMOKE case with five generated files in that instance. It leaves existing evidence intact.
 
-The [GitHub Actions workflow](https://github.com/AlBrmagawi/StegAnalysis-V2-AI-Assisted/actions/workflows/checks.yml) runs native checks on Windows and Ubuntu, all three browser engines, documentation, package builds, and a separate restricted Linux container job. It retains coverage and browser failure artifacts. Inspect the run for the specific commit you use; local QA results do not substitute for hosted CI results.
+The [GitHub Actions workflow](https://github.com/AlBrmagawi/StegAnalysis-V2-AI-Assisted/actions/workflows/checks.yml) runs native checks, documentation and package builds on Windows, Ubuntu and macOS, plus a separate restricted Linux container job. Each selected browser runs all 17 journeys, including real WAV playback:
+
+| Hosted OS | Browser projects |
+|---|---|
+| Ubuntu | Chromium, Firefox, WebKit |
+| Windows | Chromium, Firefox |
+| macOS | WebKit |
+
+This provides 102 browser checks across six OS/engine combinations. Local Playwright runs still select all three engines by default. The workflow retains coverage and browser failure artifacts. Inspect the run for the specific commit you use; configuration and local QA results do not substitute for a passing hosted run.
+
+### Windows Server WebKit limitation
+
+The initial hosted Windows run passed 50 of 51 browser checks but WebKit's WAV player remained at `readyState = 0`. A repeat with both Windows audio services confirmed running produced the same result ([recorded run](https://github.com/AlBrmagawi/StegAnalysis-V2-AI-Assisted/actions/runs/36645433731)). The complete suite, including that playback assertion, passed on the local Windows desktop and hosted Ubuntu. The root cause within the hosted Windows media stack has not been established; do not describe that combination as verified.
+
+Hosted WebKit coverage therefore runs on Linux and macOS, while Windows uses Chromium and Firefox. No test is skipped and the playback assertions are unchanged. Playwright documents that [media support depends on the host OS and recommends macOS for the closest Safari coverage](https://github.com/microsoft/playwright/blob/main/docs/src/browsers.md#webkit). This matrix does not certify branded Safari or WebKit playback on a Windows Server host.
 
 ## Repository readiness
 

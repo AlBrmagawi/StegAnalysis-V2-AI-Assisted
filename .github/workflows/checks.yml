@@ -13,7 +13,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            browsers: chromium firefox webkit
+            projects: --project=chromium --project=firefox --project=webkit
+          - os: windows-latest
+            browsers: chromium firefox
+            projects: --project=chromium --project=firefox
+          - os: macos-latest
+            browsers: webkit
+            projects: --project=webkit
     runs-on: ${{ matrix.os }}
     timeout-minutes: 25
     steps:
@@ -32,17 +41,9 @@ jobs:
       - run: uv run --frozen --group ml pytest --cov --cov-report=term-missing --cov-report=xml -q
       - run: npm ci && npm run lint && npm run build
         working-directory: frontend
-      - run: npx playwright install --with-deps chromium firefox webkit
+      - run: npx playwright install --with-deps ${{ matrix.browsers }}
         working-directory: frontend
-      - name: Start Windows audio services for WebKit media playback
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          Get-Service AudioEndpointBuilder, AudioSrv | Format-Table Name, Status, StartType
-          Start-Service AudioEndpointBuilder
-          Start-Service AudioSrv
-          Get-Service AudioEndpointBuilder, AudioSrv | Format-Table Name, Status, StartType
-      - run: npm run test:e2e
+      - run: npm run test:e2e -- ${{ matrix.projects }}
         working-directory: frontend
       - run: uv run --frozen --group ml mkdocs build --strict
       - run: uv build
